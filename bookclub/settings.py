@@ -122,6 +122,11 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+# settings.py
+
+ROOT_URLCONF = 'library.urls'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
