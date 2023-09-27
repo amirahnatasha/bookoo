@@ -1,0 +1,475 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #eae7dc;
+}
+
+.card {
+    width: 18rem;
+}
+
+.message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+
+.email {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid lightgray;
+    padding: 20px;
+}
+
+/* SIGN IN */
+
+.signin-body {
+    background-image: url('background-image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.signin-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.signin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.signin-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    text-align: center;
+}
+
+.signin-form h2 {
+    margin-bottom: 20px;
+}
+
+.signin-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signin-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #94618e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signin-form button:hover {
+    background-color: #49274a;
+}
+
+.signin-form p {
+    margin-top: 20px;
+}
+
+/* HOME PAGE */
+
+.navbar {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    margin-right: auto;
+}
+
+.navbar-nav .nav-item .nav-link {
+    position: relative; 
+    color: #000; 
+    transition: color 0.3s ease-in-out; 
+}
+
+.navbar-nav .nav-item .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: -2px; 
+    left: 0; 
+    width: 0; 
+    height: 2px; 
+    background-color: #94618e; 
+    transition: width 0.3s ease-in-out; 
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #007bff; 
+}
+
+.navbar-nav .nav-item .nav-link:hover::before {
+    width: 100%; 
+    background-color: #94618e !important;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background-color: #eae7dc;
+    padding: 0;
+    overflow: hidden;
+}
+
+.home-heading {
+    margin-bottom: 20px;
+}
+
+.home-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eae7dc;
+    z-index: -1;
+}
+.home-search-form {
+    width: 40%; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.home-form-control {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.home-image {
+    width: 50%; 
+}
+
+.btn-search {
+    width: 100%;
+    max-width: 300px; 
+    background-color: #94618e !important;
+    color : white !important;
+}
+
+.btn-search:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05); 
+}
+
+#resultsSection {
+    width: 100%;
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    background-color: white; 
+    display: none;
+}
+
+#output {
+    margin: 0 auto; 
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 20px; 
+}
+
+.btn-drop {
+    color: #94618e !important;
+    background-color: #fff !important; 
+    border: 1px solid #94618e !important; 
+    padding: 5px; 
+}
+
+/* BOOKSHELF */
+
+.book-link {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+
+.book-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #eae7dc;
+    z-index: -1;
+}
+
+.book-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+    padding: 10px;
+    transition: transform 0.2s;
+    text-align: center;
+}
+
+.book-container:hover {
+    transform: translateY(-5px);
+}
+
+.book-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.book-info {
+    margin-top: 10px;
+}
+
+.book-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.book-author {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* CLUB FORM */
+.club-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px; 
+    background-color: transparent;
+}
+
+.club-picture {
+    flex: 1; 
+    background-size: cover;
+    background-position: center;
+    height: 90vh; 
+}
+
+.club-form {
+    flex: 2; 
+    padding: 10px; 
+    background-color: #f8f9fa; 
+    border-radius: 10px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.dropdown-menu {
+    max-height: 200px; 
+    overflow-y: auto;
+}
+
+/* BOOK CLUB */
+
+.club-home-background {
+    background-size: cover;
+    background-position: center;
+    height: 95vh; 
+    padding: 0; 
+}
+
+.club-text-content {
+    padding: 30px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background-color: #94618e; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #49274a; 
+}
+
+.btn-club {
+    width: 100%;
+    max-width: 250px; 
+    background-color: #94618e !important;
+    color : white !important;
+}
+
+.btn-modal {
+    width: 100%;
+    max-width: 200px; 
+    background-color: #94618e !important;
+    color : white !important;
+}
+
+.btn-leave {
+    width: 100%;
+    max-width: 200px; 
+    background-color: #fff !important;
+    color : #94618e !important;
+}
+
+.btn-leave:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05); 
+}
+
+.btn-club:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05); 
+}
+
+body .back-link {
+    color: black; 
+    text-decoration: none;
+    position: relative; 
+}
+
+body .back-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px; 
+    background-color: #49274a; 
+    color: #94618e;
+    transition: width 0.3s ease-in-out; 
+    padding-bottom: 2px;
+}
+
+body .back-link:hover::before {
+    width: 100%; 
+}
+
+/* CLUB PAGE */
+.club-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 50px; 
+    background-color: transparent;
+}
+
+.club-name {
+    flex: 1; 
+    text-align: center;
+}
+
+.club-info {
+    flex: 2;
+}
+
+.discussion-forum-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 50px; 
+    background-color: transparent;
+}
+
+.discussion-post {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 10px 20px 0;
+}
+
+/* BOOK INFO PAGES */
+
+.info-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.info-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.info-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0 0 10px;
+}
+
+.info-author {
+    font-size: 24px;
+    color: #666;
+    margin: 0 0 20px;
+}
+
+.info-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: left;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 20px;
+    box-sizing: border-box; 
+}
+
+.info-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 20px; 
+}
+
+.custom-textarea {
+    width: 100% !important;
+}

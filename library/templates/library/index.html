@@ -1,0 +1,56 @@
+{% extends "library/layout.html" %}
+
+{% block body %}
+    <div id="message" class="message"></div>
+
+
+        <div class="home-background"></div>
+        
+        <div class="home-container">
+
+            <div class="home-image">
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.446/build/spline-viewer.js"></script>
+                <spline-viewer loading-anim url="https://prod.spline.design/LcvZvLUImE9KPCaJ/scene.splinecode"></spline-viewer>
+            </div>
+
+            <h1 class="home-heading">Search your favorite books</h1>
+
+            <div class="m-3 w-75">
+                <input id="input" onkeyup="getBooks()" class="form-control" type="text" placeholder="Book name" aria-label="default input example">
+            </div>
+            <div class="m-3">
+                <button onclick="getBooks(); showResults();" class="btn btn-search">Search Book</button>
+            </div>
+
+
+        </div>
+
+        <!-- Search results section -->
+        <form action="{% url 'addBookRead' %}" method="post">
+            {% csrf_token %}
+            <div id="resultsSection" class="container" style="display: none;">
+                <h2>Search Results</h2>
+                <div id="output" class="row m-4 w-75"></div>
+                <!-- ... (your search results content) ... -->
+            </div>
+    
+        </form>
+
+
+        <script>
+            var isAuthenticated = {% if user.is_authenticated %}true{% else %}false{% endif %};
+            
+            function showResults() {
+                // Scroll to the results section smoothly
+                document.getElementById('resultsSection').style.display = 'block'; // Show results section
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+
+                window.scrollTo({
+                    top: 760,
+                    behavior: 'smooth'
+                });
+
+            }
+        </script>
+
+{% endblock %}

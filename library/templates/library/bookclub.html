@@ -1,0 +1,72 @@
+{% extends "library/layout.html" %}
+
+{% block body %}
+
+    <div class="home-background"></div>
+
+    <div id="message" class="message"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 club-text-content">
+                <div style="height: 200px"></div>
+                
+                <div class="mx-5">
+                    <h1>Bookoo Club</h1>
+                    <h5 class="my-3">
+                        Discover like-minded readers and join a book club to share and discuss your favorite books!
+                    </h5>
+                    <h5 class="my-3">
+                        Join an existing club or create a new one yourself!
+                    </h5>
+                    <div style="height: 50px"></div>
+                    <button class="btn btn-club mx-3" onclick="scrollToBottom()">Discover</button>
+                    <a class="btn btn-club" href="{% url 'club_form' %}">Create New Club</a>
+                </div>
+            </div>
+            <div class="col-lg-6 club-home-background">
+                <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.434/build/spline-viewer.js"></script>
+                <spline-viewer class="img-fluid h-100 w-100" url="https://prod.spline.design/eghvs29ogLNOudhI/scene.splinecode"></spline-viewer>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+          <div class="col">
+
+    <div class="m-3 w-75">
+        <h3>Clubs</h3>
+        <div class="row">
+            {% for club in clubs %}
+            <div class="card m-3 col-md-5" style="max-width: 800px;">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <img src="{{ club.image }}" class="img-fluid rounded-start h-100 w-100" alt="...">
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <a class="h5 card-title" style="color:black;" href="{% url 'club_page' club.id %}">{{ club.name }}</a>
+                            <p class="card-text">{{ club.description }}</p>
+                            <p class="card-text">{{ club.current_read }}</p>
+                            <p class="card-text"><small class="text-body-secondary">{{ club.genre }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:4 and not forloop.last %}
+            </div><div class="row">
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        // Function to scroll to the bottom of the page
+        function scrollToBottom() {
+            const bottomElement = document.body;
+            bottomElement.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+    </script>
+
+{% endblock %}

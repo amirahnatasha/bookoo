@@ -1,0 +1,197 @@
+{% extends "library/layout.html" %}
+
+{% block body %}
+
+<div class="home-background"></div>
+<div class="m-3 w-75">
+    <a class="back-link" href="{% url 'bookClub' %}">← Back</a>
+</div>
+
+<div class="club-info-container">
+
+    <div class="m-3 club-name">
+        <h1>{{ club.name }}</h1>
+        <img src="{{ club.image }}" class="img-fluid rounded-start h-50 w-50">
+    </div>
+
+    <div class="club-info">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+    
+        <div class="m-3 w-75">
+            <p>Description : {{ club.description }}</p>
+            <p>Current read : {{ club.current_read }}</p>
+            <p>Created by : {{ club.created_by }}</p>
+            <p>Genre : {{ club.genre }}</p>
+            <p>Number of members : {{ club.members.count }}  / {{ club.max }}</p>
+            <p>Members : 
+                {% for member in members %}
+                    {% if member != club.created_by %}
+                        {{ member }}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            
+        </div>
+    
+        <div class="m-3 w-75">
+            <!-- If user is in the members list or created the club -->
+            {% if user_joined or user == club.created_by %}
+                <button class="btn btn-club m-3" disabled>You are already a member</button>
+                <button type="button" class="btn btn-leave" data-toggle="modal" data-target="#leaveClub">Leave Club</button>
+            <!-- If user already joined another club -->
+            {% elif user_joined_other %}
+                <button class="btn btn-club" disabled>You already joined another club</button>
+            {% else %}
+                <button type="button" class="btn btn-club" data-toggle="modal" data-target="#joinClub">Join Club</button>
+            {% endif %}
+            <div id="join-message" style="display: none;"></div>
+        </div>
+
+        <!-- Join Club Modal -->
+        <div class="modal fade" id="joinClub" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ club.name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to join this club?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-modal" onclick="joinCLubAlert('{% url 'join_club' club.id %}')">Join Club</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Leave Club Modal -->
+        <div class="modal fade" id="leaveClub" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ club.name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to leave this book club?
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Stay</button>
+                <a class="btn btn-modal" onclick="leaveCLubAlert('{% url 'leave_club' club.id %}')">Yes, I want to leave</a>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    
+        {% if user.is_authenticated %}
+        <div class="m-3 w-75">
+            {% if user_joined or user == club.created_by %}
+            <form action="{% url 'new_post' club.id %}" method="post">
+                {% csrf_token %}
+                <div class="m-3 w-75">
+                    <h3>New Post</h3>
+                    <textarea class="form-control" name="post" rows="3"></textarea>
+                </div>
+                <div class="m-3">
+                    <button type="submit" class="btn btn-club">Post</button>
+                </div>
+                
+            </form>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if user_joined or user == club.created_by %}
+<div class="discussion-forum-container">
+
+    <div class="discussion-title">
+        <h1>Discussion Forum</h1>
+    </div>
+
+    <div class="discussion-post">
+        {% for post in posts %}
+        <div class="all-posts">
+            <div class="card m-3 w-75">
+                <div class="card-body">
+                    <h5 class="card-title"><a style="color:black" href="#">{{ post.posted_by.username }}</a></h5>  
+                    <p class="card-text" id="post-content_{{ post.id }}">{{ post.post }}</p> 
+                    </br >
+                    <span style="font-size: 15px; color: gray; float: right;">{{ post.timestamp }}</span>
+                    <!-- <p id='likeCount_{{post.id}}'>{{ post.likes }}</p> -->
+                    <span style="color: gray; float: right;"> 
+                </span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="m-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination d-flex justify-content-center">
+                {% if not posts.has_previous and not posts.has_next %}
+                  <li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                  <li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+                {% elif not posts.has_previous %}
+                    <li class="page-item disabled"><a class="page-link" href="">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+                {% elif not posts.has_next %}
+                    <li class="page-item"><a class="page-link" href="/?page{{ posts.previous_page_number }}">Previous</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="">Next</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="/?page{{ posts.previous_page_number }}">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="/?page{{ posts.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+          </nav>
+      </div>
+</div>
+{% else %}
+<div class="discussion-forum-container">
+    <div class="card m-3 w-75">
+        <div class="card-body">
+            <h5 style="text-align: center;">Join the club to access the discussion forum.</h5>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script>
+    function joinCLubAlert(url) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Welcome!',
+            text: 'You joined the book club.',
+            confirmButtonText: 'OK',
+            preConfirm: function() {
+                window.location.href = url;
+            }
+        });
+    }
+
+    function leaveCLubAlert(url) {
+        Swal.fire({
+            icon: 'warning',
+            title: "We're going to miss you!",
+            text: 'You left the book club.',
+            confirmButtonText: 'OK',
+            preConfirm: function() {
+                window.location.href = url;
+            }
+        });
+    }
+
+</script>
+
+
+{% endblock %}
+

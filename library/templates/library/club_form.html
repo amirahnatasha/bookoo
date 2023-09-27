@@ -1,0 +1,67 @@
+{% extends "library/layout.html" %}
+
+{% block body %}
+    <div class="home-background"></div>
+    <div class="club-page-container">
+        <div class="club-picture">
+            <a class="back-link" href="{% url 'bookClub' %}">← Back</a>
+            <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.431/build/spline-viewer.js"></script>
+            <spline-viewer loading-anim url="https://prod.spline.design/YZayOcddKuhQePKX/scene.splinecode"></spline-viewer>
+        </div>
+        <div class="club-form">
+            <div class="m-3">
+                <h1>Create New Club</h1>
+            </div>
+            {% if message %}
+                <div>{{ message }}</div>
+            {% endif %}
+
+            {% if user_joined %}
+                <div>You are already a member of a club and cannot create a new club.</div>
+            {% elif created %}
+                <div>You already created a club</div>
+            {% else %}
+                <form action="{% url 'new_club' %}" method="post" class="m-3 w-75" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <label>Club Name</label>
+                    <input name="name" type="text" class="form-control" placeholder="Club Name" required>
+                    </div>
+                    <div class="form-group">
+                    <label>Club Description</label>
+                    <input name="description" type="text" class="form-control" placeholder="Description" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Maximun number of members</label>
+                        <input name="max" type="number" class="form-control" placeholder="Number of Members" min="2" max="12" required>
+                        <small class="form-text text-muted">We recommend a number of 8-12 members per club.</small>
+                    </div>
+                    <div class="my-3">
+                        <label>Genre</label>
+                        <select name="genre" id="genre" class="form-control" required>
+                            {% for genre in genres %}
+                                <option value="{{ genre.genre }}">{{ genre.genre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="my-3">
+                        <label>Current Read</label>
+                        <select name="current_read" class="form-control" required>
+                            {% for cr in cr %}
+                                <option value="{{ cr.book.title }}">{{ cr.book }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input name="image" type="text" class="form-control" placeholder="Image URL" required>
+                    </div>
+                    <button type="submit" class="btn btn-club">Create New Club</button>
+                </form>
+            {% endif %}
+            
+        </div>
+    </div>
+
+
+{% endblock %}
