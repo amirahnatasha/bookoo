@@ -51,6 +51,6 @@ To run the Bookoo application locally:
 
 You can access the application in your web browser at `http://localhost:8000/`.
 
-[![IMAGE ALT TEXT]([http://img.youtube.com/vi/PGHTFmwBrNI/0.jpg)](https://youtu.be/PGHTFmwBrNI "Bookoo Website")
+[![Bookoo Website]([http://img.youtube.com/vi/PGHTFmwBrNI/0.jpg)](https://youtu.be/PGHTFmwBrNI "Bookoo Website")
 
 
